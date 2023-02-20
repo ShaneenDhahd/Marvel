@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import retrofit2.Response
 
-open class BaseNetworkInterBaseNetworkInteractoractor {
+open class BaseNetworkInteractor {
 
     fun <T> safeApiCall(request: (suspend () -> Response<T>)) = flow {
         //show loading state
