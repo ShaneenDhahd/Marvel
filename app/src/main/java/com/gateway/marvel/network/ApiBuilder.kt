@@ -13,7 +13,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiBuilder {
-    private const val BASE_URL = "https://installmentsapi.alroiagroup.com/api/"
+    private const val BASE_URL = ""
 
     @Singleton
     @Provides
