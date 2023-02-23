@@ -1,12 +1,24 @@
 package com.gateway.marvel.network
 
+import java.math.BigInteger
+import java.security.MessageDigest
+import java.sql.Timestamp
+
 object BaseUrls {
-    const val BASE_URL = "https://gateway.marvel.com:443/v1/public/"
-    const val AUTH_URL = "?apikey=ca74e2a96a3f354a8dc3bf07a0bf62db"
-    const val CHARACTERS_URL = "${BASE_URL}characters${AUTH_URL}"
-    const val COMICS_URL = "${BASE_URL}comics${AUTH_URL}"
-    const val STORIES_URL = "${BASE_URL}stories${AUTH_URL}"
-    const val SERIES_URL = "${BASE_URL}series${AUTH_URL}"
-    const val EVENTS_URL = "${BASE_URL}events${AUTH_URL}"
-    const val CARTOONS_URL = "${BASE_URL}cartoon${AUTH_URL}"
+    const val BASE_URL = "https://gateway.marvel.com/v1/public/"
+    const val AUTH = "ca74e2a96a3f354a8dc3bf07a0bf62db"
+    const val PRIVATE_AUTH = "7fb18a94606dfed5fb88d5cb940d8c445128521f"
+    val timeStamp = Timestamp(System.currentTimeMillis()).time.toString()
+    const val CHARACTERS_URL = "characters"
+    const val COMICS_URL = "comics"
+    const val STORIES_URL = "BASE_URL}stories"
+    const val SERIES_URL = "series"
+    const val EVENTS_URL = "events"
+    const val CARTOONS_URL = "cartoon"
+
+    fun hash(): String {
+        val input = "$timeStamp$PRIVATE_AUTH$AUTH"
+        val md = MessageDigest.getInstance("MD5")
+        return  BigInteger(1, md.digest(input.toByteArray())).toString(16)
+    }
 }
