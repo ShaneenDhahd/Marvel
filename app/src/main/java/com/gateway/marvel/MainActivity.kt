@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
 
                 ResponseWrapper.Loading -> Log.d("home", "$it")
                 is ResponseWrapper.LocalFailure -> Log.d("home", getString(it.msgRes))
-                is ResponseWrapper.Success -> Log.d("home", it.value.toString())
+                is ResponseWrapper.Success -> Log.d("home", it.value.data.results.first().name)
             }
         }
         Log.d("home", "it")

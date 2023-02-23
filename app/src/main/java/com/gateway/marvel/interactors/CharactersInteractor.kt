@@ -7,5 +7,5 @@ import javax.inject.Inject
 
 @ActivityRetainedScoped
 class CharactersInteractor @Inject constructor(private val api: Api): BaseNetworkInteractor() {
-    fun getCharacters() = safeApiCall { api.getCharacters() }
+    fun getCharacters(name: String? = null) = safeApiCall { api.getCharacters(name = name) }
 }
