@@ -3,7 +3,7 @@ package com.gateway.marvel.models
 import com.google.gson.annotations.SerializedName
 
 
-data class Characters (
+data class MainResponse (
     val code: Long,
     val status: String,
     val copyright: String,

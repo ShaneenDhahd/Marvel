@@ -1,6 +1,7 @@
 package com.gateway.marvel.network
 
-import com.gateway.marvel.models.Characters
+import com.gateway.marvel.models.MainResponse
+import com.gateway.marvel.models.Events
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -13,5 +14,18 @@ interface Api {
         @Query("ts") ts: String = ApiKey.timeStamp,
         @Query("hash") hash: String = ApiKey.hash(),
         @Query("name") name: String? = null
-    ): Response<Characters>
+    ): Response<MainResponse>
+
+    @GET(BaseUrls.EVENTS_URL)
+    suspend fun getEventss(
+        @Query("apikey") apikey: String = ApiKey.AUTH,
+        @Query("ts") ts: String = ApiKey.timeStamp,
+        @Query("hash") hash: String = ApiKey.hash(),
+    ): Response<MainResponse>
+    @GET(BaseUrls.EVENTS_URL)
+    suspend fun getEvents(
+        @Query("apikey") apikey: String = ApiKey.AUTH,
+        @Query("ts") ts: String = ApiKey.timeStamp,
+        @Query("hash") hash: String = ApiKey.hash(),
+    ): Response<MainResponse>
 }

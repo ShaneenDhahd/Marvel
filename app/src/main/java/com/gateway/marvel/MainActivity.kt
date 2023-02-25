@@ -1,50 +1,72 @@
 package com.gateway.marvel
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.gateway.marvel.interactors.CharactersInteractor
-import com.gateway.marvel.network.Api
-import com.gateway.marvel.network.ApiBuilder
-import com.gateway.marvel.network.BaseNetworkInteractor
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import com.gateway.marvel.models.HomeSections
 import com.gateway.marvel.network.ResponseWrapper
 import com.gateway.marvel.ui.theme.MarvelTheme
+import com.gateway.marvel.utils.getImage
+import com.gateway.marvel.utils.logMessage
 import com.gateway.marvel.viewModels.CharactersViewModel
+import com.gateway.marvel.viewModels.EventsViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.nesyou.staggeredgrid.LazyStaggeredGrid
+import com.nesyou.staggeredgrid.StaggeredCells
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val charactersVM by viewModels<CharactersViewModel>()
-
+    private val eventsVM by viewModels<EventsViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         charactersVM.getCharacters()
-        charactersVM.characters.observe(this) {
-            Log.d("home", "$it")
-            when(it) {
-                is ResponseWrapper.Failure -> Log.d("home", it.msg)
+        eventsVM.getEvents()
 
-                ResponseWrapper.Loading -> Log.d("home", "$it")
-                is ResponseWrapper.LocalFailure -> Log.d("home", getString(it.msgRes))
-                is ResponseWrapper.Success -> Log.d("home", it.value.data.results.first().name)
-            }
-        }
-        Log.d("home", "it")
         setContent {
+
             MarvelTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Text(text = "Gateway ICT")
+                Surface() {
+                    HomeScreen()
                 }
             }
         }
+
     }
+
+
 }
+

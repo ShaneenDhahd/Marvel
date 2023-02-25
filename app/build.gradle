@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.gateway.marvel"
-        minSdk 21
+        minSdk 23
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -39,7 +39,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.2.0'
+        kotlinCompilerExtensionVersion '1.4.1'
     }
     packagingOptions {
         resources {
@@ -50,14 +50,25 @@ android {
 
 dependencies {
 
+    implementation 'com.github.nesyou01:LazyStaggeredGrid:1.2.0'
+
     //hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:+'
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
+    // accompanist - PagerView
+    def accompanist_pager = "0.26.1-alpha"
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_pager"
+    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_pager"
+
+    implementation 'io.coil-kt:coil-compose:2.2.2'
     //glide
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
 
     //retrofit
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
@@ -69,6 +80,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
     //compose
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_ui_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0-beta01"
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
     implementation 'androidx.activity:activity-compose:1.6.1'
